@@ -1,5 +1,5 @@
 export const trimRecipe = data => {
-    const { id, title, image, readyInMinutes, servings, extendedIngredients, analyzedInstructions, sourceUrl, creditsText} = recipe
+    const { id, title, image, readyInMinutes, servings, extendedIngredients, analyzedInstructions, sourceUrl, creditsText} = data.recipe
     return ({
       id: id,
       title: title,
@@ -23,7 +23,7 @@ export const trimRecByIng = data => {
       missedIngredients,
       usedIngredients,
       unusedIngredients
-    } = data
+    } = recipe
 
     const allIngredients = combineIngredients(missedIngredients, usedIngredients)
 
@@ -42,8 +42,9 @@ export const trimRecByIng = data => {
 const combineIngredients = (missed, used) => {
   const allIngredients = []
   
-
   missed.forEach(ingredient => {
+    const id = ingredient.id
+    if(allIngredients.find(ingredient => ingredient.id === id)) return
     let trimmed = {
       id: ingredient.id,
       name: ingredient.name,
@@ -53,6 +54,8 @@ const combineIngredients = (missed, used) => {
   })
 
   used.forEach(ingredient => {
+    const id = ingredient.id
+    if(allIngredients.find(ingredient => ingredient.id === id)) return
     let trimmed = {
       id: ingredient.id,
       name: ingredient.name,

@@ -1,14 +1,16 @@
 import { createStore } from 'vuex'
 import { trimRecipe, trimRecByIng } from './helpers'
+import { recipesByIngData, fullRecipeData } from './data.js'
 
-const apiKey = process.env.API_KEY
+const apiKey = 'cdf99fb3ce324f408c7ca15d9eaca276'
 
 
 export default createStore({
   state: {
     recipes: [],
     recipesByIng: [],
-    isRandom: false
+    isRandom: false,
+    showModal: false,
   },
   mutations: {
     setRandom: (state, trimmedRecipe) => {
@@ -22,8 +24,17 @@ export default createStore({
     },
     setRecipes: (state, trimmedRecipe) => {
       state.recipes = [...state.recipes, trimmedRecipe]
+    },
+    modalSwitch: (state) => {
+      console.log(state.showModal)
+      if(state.showModal) {
+        state.showModal = false
+      } else {
+        state.showModal = true
+      }
     }
   },
+
   actions: {
     async getRandom({commit}) {
       const res = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`)
@@ -33,37 +44,29 @@ export default createStore({
     },
     
     async getRecipesByIng({commit}, queryArray) {
-      const queryString = queryArray.join(',+')
-      let url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${queryString}&number=3`
-      const res = await fetch(url)
-      const data = await res.json()
-      const trimmedRecByIng = trimRecByIng(data)
+      // console.log(queryArray)
+      // const queryString = queryArray.join(',+')
+      // console.log(queryString) 
+      // let url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${queryString}&number=3`
+      // const res = await fetch(url)
+      // const data = await res.json()
+      const trimmedRecByIng = trimRecByIng(recipesByIngData)
       commit("setRecipesByIng", trimmedRecByIng)
     },  
     
     async getFullRecipe({commit}, id) {
-      let url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
-      const res = await fetch(url)
-      const data = await res.json()
-      const trimmedRecipe = trimRecipe(data)
+      // let url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
+      // const res = await fetch(url)
+      // const data = await res.json()
+      const trimmedRecipe = trimRecipe(fullRecipeData)
       commit("setRecipes", trimmedRecipe)
     },
     
-    testNewRecipe({commit}) {
-      const trimmedRecipes = [
-        {
-        id: Math.random(),
-        title: "random title" + Math.random(),
-        analyzedInstructions: [
-          {
-            step: Math.random()
-          }
-        ]
-        }
-      ]
-      commit("getRandom", trimmedRecipes)
+    modalSwitch({commit}) {
+      commit("modalSwitch")
     }
   },
+
   getters: {
     recipeById: (state) => (id) => {
       console.log("getter hit")

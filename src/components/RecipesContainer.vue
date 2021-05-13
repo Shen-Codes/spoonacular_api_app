@@ -2,7 +2,9 @@
   <div class="recipes-container">
     <h1>Recipes</h1>
     <RecipeCard v-if="isRandom" v-bind="recipes[0]" :key="recipes[0].id"/>
-    <RecipeByIngCard v-show="!isRandom" v-for="recipe in recipesByIng" :key="recipe.id"/>
+    <div class="recipes-container__grid">
+      <RecipeByIngCard v-show="!isRandom" v-for="recipe in recipesByIng" v-bind="recipe" :key="recipe.id"/>
+    </div>
   </div>
 </template>
 
@@ -26,7 +28,7 @@ export default {
   methods: {
     logProps(e) {
       e.preventDefault()
-      console.log(this.recipes)
+      console.log(this.recipesByIng)
     }
   }
 }
@@ -38,5 +40,10 @@ export default {
   display: grid;
   grid-template-columns: repeat(3, 1 fr);
   margin-top: 20px;
+}
+
+.recipes-container__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 </style>

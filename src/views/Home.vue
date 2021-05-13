@@ -2,6 +2,8 @@
   <div class="home">
     <SearchBar />
     <RecipesContainer/>
+    <RecipeModal v-show="showModal"/>
+    <Button type="test modal" @click="modalSwitch"/>
   </div>
 </template>
 
@@ -10,21 +12,22 @@
 import SearchBar from '../components/SearchBar.vue'
 import Button from '../components/Button.vue'
 import RecipesContainer from '../components/RecipesContainer'
+import RecipeModal from '../components/RecipeModal'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     SearchBar,
     Button,
-    RecipesContainer
+    RecipesContainer,
+    RecipeModal
   },
-  data() {
-    return {
-      recipes: []
-    }
-  },
+  computed: mapState({
+    showModal: state => state.showModal
+  }),
   methods: {
-    
+    ...mapActions(["modalSwitch"])
   }
 }
 </script>

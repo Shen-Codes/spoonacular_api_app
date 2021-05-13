@@ -8,7 +8,6 @@
                     v-model="searchQuery"
                     placeholder="Search by ingredients..." 
                     name="searchQuery"
-
                 />
                 <Button type="Search"/>
             </form>
@@ -54,12 +53,12 @@ export default {
             if(!this.searchArray[this.searchArray.length - 1]){
                 this.searchArray.pop()
             }
-            this.getRecipesByIng(this.searchQuery)
+            this.getRecipesByIng(this.searchArray)
         },
         updateSearchArray() {
             let searchArray = this.searchQuery.split(',')
-            searchArray.forEach(ing => {
-                ing.trim()
+            searchArray = searchArray.map(ing => {
+                return ing.trim()
             })
             this.searchArray = searchArray
         },
