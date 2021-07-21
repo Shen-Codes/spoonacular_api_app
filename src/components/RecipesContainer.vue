@@ -1,7 +1,6 @@
 <template v-if="recipes.length > 0">
   <div class="recipes-container">
     <h1>Recipes</h1>
-    <RecipeCard v-if="isRandom" v-bind="recipe" :key="recipes[0].id" />
     <div class="recipes-container__grid">
       <RecipeByIngCard
         v-show="!isRandom"
@@ -14,14 +13,12 @@
 </template>
 
 <script>
-import RecipeCard from "./RecipeCard";
 import RecipeByIngCard from "./RecipeByIngCard";
 import { mapState } from "vuex";
 
 export default {
   Name: "RecipesContainer",
   components: {
-    RecipeCard,
     RecipeByIngCard,
   },
   computed: mapState({

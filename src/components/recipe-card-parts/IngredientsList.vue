@@ -1,6 +1,12 @@
 <template>
   <ul class="ingredients">
-    <li class="ingredients__ingredient" v-for="ingredient of ingredients" :key="ingredient.id"> {{ ingredient.amount}} {{ingredient.unit}} {{ ingredient.name }}</li>
+    <li
+      class="ingredients__ingredient"
+      v-for="ingredient of ingredients"
+      :key="ingredient.id"
+    >
+      {{ ingredient.amount }} {{ ingredient.unit }} {{ ingredient.name }}
+    </li>
   </ul>
 </template>
 
@@ -8,9 +14,9 @@
 export default {
   name: "IngredientsList",
   props: {
-    ingredients: Array
-  }, 
-}
+    ingredients: Array,
+  },
+};
 </script>
 
 <style scoped>

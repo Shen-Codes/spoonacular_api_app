@@ -2,7 +2,7 @@ import { createStore } from 'vuex';
 import { trimRecipe, trimRecByIng } from './helpers';
 import { recipesByIngData, fullRecipeData } from './data.js';
 
-const apiKey = 'cdf99fb3ce324f408c7ca15d9eaca276';
+const apiKey = process.env.VUE_APP_API_KEY;
 
 
 export default createStore({
@@ -43,10 +43,9 @@ export default createStore({
     async getRecipesByIng({ commit }, queryArray) {
       console.log(queryArray);
       const queryString = queryArray.join(',+');
-      let url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${queryString}&number=50&ranking=2`;
+      let url = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${queryString}&number=30&ranking=1`;
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       const trimmedRecByIng = trimRecByIng(data);
       commit("setRecipesByIng", trimmedRecByIng);
     },
@@ -55,7 +54,6 @@ export default createStore({
       let url = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
       const res = await fetch(url);
       const data = await res.json();
-      console.log(data);
       const trimmedRecipe = trimRecipe(data);
       commit("setRecipe", trimmedRecipe);
     },

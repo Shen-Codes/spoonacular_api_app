@@ -93,6 +93,7 @@ export default {
 }
 .ingredients-list {
   display: flex;
+  margin-top: 1%;
 }
 .ingredients-list__ingredient {
   margin-left: 5px;

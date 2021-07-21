@@ -1,35 +1,32 @@
 <template>
   <div class="home">
     <SearchBar />
-    <RecipesContainer/>
-    <RecipeModal v-show="showModal"/>
-    <Button type="test modal" @click="modalSwitch"/>
+    <RecipesContainer />
+    <RecipeModal v-show="showModal" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SearchBar from '../components/SearchBar.vue'
-import Button from '../components/Button.vue'
-import RecipesContainer from '../components/RecipesContainer'
-import RecipeModal from '../components/RecipeModal'
-import { mapActions, mapState } from 'vuex'
+import SearchBar from "../components/SearchBar.vue";
+import RecipesContainer from "../components/RecipesContainer";
+import RecipeModal from "../components/RecipeModal";
+import { mapActions, mapState } from "vuex";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     SearchBar,
-    Button,
     RecipesContainer,
-    RecipeModal
+    RecipeModal,
   },
   computed: mapState({
-    showModal: state => state.showModal
+    showModal: (state) => state.showModal,
   }),
   methods: {
-    ...mapActions(["modalSwitch"])
-  }
-}
+    ...mapActions(["modalSwitch"]),
+  },
+};
 </script>
 
 <style scoped>
