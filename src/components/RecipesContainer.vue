@@ -1,38 +1,41 @@
 <template v-if="recipes.length > 0">
   <div class="recipes-container">
     <h1>Recipes</h1>
-    <RecipeCard v-if="isRandom" v-bind="recipes[0]" :key="recipes[0].id"/>
+    <RecipeCard v-if="isRandom" v-bind="recipe" :key="recipes[0].id" />
     <div class="recipes-container__grid">
-      <RecipeByIngCard v-show="!isRandom" v-for="recipe in recipesByIng" v-bind="recipe" :key="recipe.id"/>
+      <RecipeByIngCard
+        v-show="!isRandom"
+        v-for="recipe in recipesByIng"
+        v-bind="recipe"
+        :key="recipe.id"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import RecipeCard from './RecipeCard'
-import RecipeByIngCard from './RecipeByIngCard'
-import { mapState } from 'vuex'
-
+import RecipeCard from "./RecipeCard";
+import RecipeByIngCard from "./RecipeByIngCard";
+import { mapState } from "vuex";
 
 export default {
   Name: "RecipesContainer",
   components: {
     RecipeCard,
-    RecipeByIngCard
+    RecipeByIngCard,
   },
   computed: mapState({
-      recipes: state => state.recipes,
-      isRandom: state => state.isRandom,
-      recipesByIng: state => state.recipesByIng
+    recipe: (state) => state.recipe,
+    isRandom: (state) => state.isRandom,
+    recipesByIng: (state) => state.recipesByIng,
   }),
   methods: {
     logProps(e) {
-      e.preventDefault()
-      console.log(this.recipesByIng)
-    }
-  }
-}
-
+      e.preventDefault();
+      console.log(this.recipesByIng);
+    },
+  },
+};
 </script>
 
 <style scoped>

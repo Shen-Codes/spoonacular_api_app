@@ -1,9 +1,9 @@
 <template>
   <h2 class="recipe-title">{{ title }}</h2>
-  <img class="recipe-image" :src="image" :alt="title">
+  <img class="recipe-image" :src="image" :alt="title" />
   <div class="sub-info">
-    <p>Ready in {{readyIn}} minutes</p>
-    <p>Serves: {{servings}}</p>
+    <p>Ready in {{ readyIn }} minutes</p>
+    <p>Serves: {{ servings }}</p>
   </div>
 </template>
 
@@ -14,20 +14,19 @@ export default {
     title: String,
     image: String,
     readyIn: Number,
-    servings: Number
+    servings: Number,
   },
-}
+};
 </script>
 
 <style scoped>
 .recipe-image {
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .sub-info {
   display: flex;
   justify-content: space-between;
-
 }
-
 </style>

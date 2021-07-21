@@ -3,14 +3,11 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
-
-
+          <RecipeCard v-bind="recipe" :key="recipe.id" />
           <div class="modal-footer">
             <slot name="footer">
-              default footer
               <button class="modal-default-button" @click="modalSwitch">
-                OK
+                close
               </button>
             </slot>
           </div>
@@ -21,18 +18,21 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import RecipeCard from './RecipeCard'
+import { mapActions, mapState } from "vuex";
+import RecipeCard from "./RecipeCard";
 
 export default {
   name: "RecipeModal.vue",
   components: {
-    RecipeCard
+    RecipeCard,
   },
+  computed: mapState({
+    recipe: (state) => state.recipe,
+  }),
   methods: {
-    ...mapActions(["modalSwitch"])
-  }
-}
+    ...mapActions(["modalSwitch"]),
+  },
+};
 </script>
 
 <style scoped>
@@ -44,17 +44,18 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-container {
-  width: 300px;
+  width: 45%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
